@@ -1,0 +1,27 @@
+version: '3'
+services:
+  gq-arm-scala:
+    image: gq-env-arm:latest
+    tty: true
+    volumes: [".:/home"]
+    entrypoint: sbt
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        IMAGE: "arm64v8/ubuntu"
+        TAG: "20.04"
+        SBT_VERSION: "1.5.4"
+  gq-x86-scala:
+    image: gq-env-x85:latest
+    tty: true
+    volumes:
+      - ".:/home"
+    entrypoint: sbt
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        IMAGE: "ubuntu"
+        TAG: "20.04"
+        SBT_VERSION: "1.5.4"
