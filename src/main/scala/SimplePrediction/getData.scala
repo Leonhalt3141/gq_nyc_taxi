@@ -1,6 +1,8 @@
+package SimplePrediction
+
+import org.apache.spark.sql.functions.{col, to_date, unix_timestamp}
+import org.apache.spark.sql.types._
 import org.apache.spark.sql.{DataFrame, SparkSession}
-import org.apache.spark.sql.types.{DoubleType, IntegerType, StringType, StructField, StructType, TimestampType}
-import org.apache.spark.sql.functions._
 
 object getData {
   def getTrainData(sparkSession: SparkSession, link: String): DataFrame = {

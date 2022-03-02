@@ -1,8 +1,8 @@
+package SimplePrediction
 
 import org.apache.spark.sql.DataFrame
-import org.apache.spark.sql.types._
 import org.apache.spark.sql.functions._
-
+import org.apache.spark.sql.types.TimestampType
 
 object preProcess {
 
@@ -14,7 +14,7 @@ object preProcess {
       .withColumn("hour", hour(col("pickup_datetime")))
       .withColumn("minute", minute(col("pickup_datetime")))
       .withColumn("Date", to_date(col("pickup_datetime")))
-      .withColumn("pickup_time", round(col("hour")+ col("minute") / 60, 2))
+      .withColumn("pickup_time", round(col("hour") + col("minute") / 60, 2))
     df_time_ts
   }
 

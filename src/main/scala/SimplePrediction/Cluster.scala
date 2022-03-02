@@ -1,27 +1,26 @@
-import scala.reflect.io.Directory
-import java.io.File
-import org.apache.spark.sql.DataFrame
+package SimplePrediction
+
 import org.apache.spark.ml.clustering.{KMeans, KMeansModel}
-import org.apache.spark.ml.evaluation.ClusteringEvaluator
-import org.apache.spark.sql.functions.rand
-import org.apache.spark.ml.feature.{IndexToString, StringIndexer, StringIndexerModel, VectorAssembler}
-import org.apache.spark.sql.types._
-import org.apache.spark.sql.functions._
+import org.apache.spark.ml.feature.VectorAssembler
+import org.apache.spark.sql.DataFrame
+
+import java.io.File
+import scala.reflect.io.Directory
 
 object Cluster {
 
-    def makeClusteringDf(df: DataFrame): DataFrame = {
-      val colsToIndex = Array("pickup_latitude", "pickup_longitude", "dropoff_latitude", "dropoff_longitude")
+  def makeClusteringDf(df: DataFrame): DataFrame = {
+    val colsToIndex = Array("pickup_latitude", "pickup_longitude", "dropoff_latitude", "dropoff_longitude")
 
-      val vectorizedDf = new VectorAssembler()
-        .setInputCols(colsToIndex)
-        .setOutputCol("features")
-        .setHandleInvalid("skip")
-        .transform(df)
+    val vectorizedDf = new VectorAssembler()
+      .setInputCols(colsToIndex)
+      .setOutputCol("features")
+      .setHandleInvalid("skip")
+      .transform(df)
 
-      vectorizedDf
+    vectorizedDf
 
-    }
+  }
 
   def trainKMeans(df: DataFrame, saveModelPath: String): Unit = {
     val directory = new Directory(new File(saveModelPath))

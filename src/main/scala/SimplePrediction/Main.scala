@@ -1,20 +1,18 @@
+package SimplePrediction
 
-import org.apache.spark.sql._
-import org.apache.spark.storage.StorageLevel
-import org.apache.spark.{SparkConf, SparkContext}
-import Cluster._
-import Prediction._
-import org.apache.spark.sql.types.{DoubleType, IntegerType, StringType, StructField, StructType, TimestampType}
-import getData._
-import Distance._
-import preProcess._
-import org.apache.spark.sql.functions.{avg, broadcast, col}
+import SimplePrediction.Cluster.{predictCluster, trainKMeans}
+import SimplePrediction.Distance.makeHaversineDsirance
+import SimplePrediction.Prediction.trainFarePredictionModel
+import SimplePrediction.getData.{getHolidayData, getTrainData}
+import SimplePrediction.preProcess.{filterOutliers, makeHolidays, processTime}
+import org.apache.spark.sql.functions.broadcast
+import Util.SparkSessionBase
 
-object Check extends SparkSessionBase {
+object Main extends SparkSessionBase {
   def main(args: Array[String]): Unit = {
-//    val conf = new SparkConf().setAppName("Taxi").setMaster("local[*]")
-//    val sc = new SparkContext(conf)
-//    sc.stop()
+    //    val conf = new SparkConf().setAppName("Taxi").setMaster("local[*]")
+    //    val sc = new SparkContext(conf)
+    //    sc.stop()
 
     val trainDataLink = "data/train.csv"
     val holidayDataLink = "data/usholidays.csv"
@@ -28,14 +26,14 @@ object Check extends SparkSessionBase {
     val holidayData = getHolidayData(sparkSession, holidayDataLink)
 
     trainData = trainData.join(broadcast(holidayData), Seq("Date"), "left_outer")
-    trainData =  makeHolidays(trainData)
+    trainData = makeHolidays(trainData)
 
     trainData = makeHaversineDsirance(trainData)
     trainKMeans(trainData, kmeansModelLink)
 
     trainData = predictCluster(trainData, kmeansModelLink)
     trainData = filterOutliers(trainData)
-//    trainData.show(10)
+    //    trainData.show(10)
     trainFarePredictionModel(trainData, sample_fraction)
 
     println(trainData.count())

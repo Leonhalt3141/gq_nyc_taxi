@@ -1,6 +1,7 @@
+package SimplePrediction
 
 import org.apache.spark.sql.DataFrame
-import org.apache.spark.sql.functions._
+import org.apache.spark.sql.functions.{col, lit, radians, udf}
 
 object Distance {
 
@@ -14,11 +15,11 @@ object Distance {
       .withColumn("haversine_lat_diff", col("dropoff_latitude_rad") - col("pickup_latitude_rad"))
       .withColumn("haversine_lng_diff", col("dropoff_latitude_rad") - col("pickup_latitude_rad"))
       .withColumn("haversine", computeHaversineUDF(
-          col("haversine_lat_diff"),
-          col("pickup_latitude_rad"),
-          col("dropoff_latitude_rad"),
-          col("haversine_lng_diff"),
-          lit(AVG_EARTH_RADIUS)))
+        col("haversine_lat_diff"),
+        col("pickup_latitude_rad"),
+        col("dropoff_latitude_rad"),
+        col("haversine_lng_diff"),
+        lit(AVG_EARTH_RADIUS)))
     dfHaversine
   }
 
