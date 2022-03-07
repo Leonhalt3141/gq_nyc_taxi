@@ -8,4 +8,4 @@ if [ -z "$SPARK_APPLICATION_JAR_LOCATION" ]; then
 	exit 1
 fi
 
-/submit.sh
+/home/submit.sh

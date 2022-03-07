@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sh /submit.sh
+sh /home/submit.sh

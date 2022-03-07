@@ -6,10 +6,11 @@ ARG SBT_VERSION=1.4.9
 
 # Install sbt
 RUN \
+  useradd -ms /bin/bash ubuntu && \
   mkdir /working/ && \
   cd /working/ && \
   apt-get update && \
-  apt-get install -y curl openjdk-8-jdk && \
+  apt-get install -y curl openjdk-8-jdk wget curl && \
   curl -L -o sbt-$SBT_VERSION.deb https://repo.scala-sbt.org/scalasbt/debian/sbt-$SBT_VERSION.deb && \
   dpkg -i sbt-$SBT_VERSION.deb && \
   rm sbt-$SBT_VERSION.deb && \
@@ -23,5 +24,5 @@ RUN \
   apt-get clean -y all && \
   rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
 
-
+USER ubuntu
 WORKDIR /home/

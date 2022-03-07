@@ -1,4 +1,6 @@
-FROM bde2020/spark-maven-template:3.1.1-hadoop3.2
+ARG IMAGE=gq-env-x85
+ARG TAG=latest
+FROM ${IMAGE}:${TAG}
 
 LABEL MAINTAINER="Gezim Sejdiu <g.sejdiu@gmail.com>"
 

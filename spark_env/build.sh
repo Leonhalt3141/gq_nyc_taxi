@@ -1,11 +1,11 @@
 #!/bin/bash
 
-BASE_IMAGE=arm64v8/ubuntu
-IMAGE_TAG=20.04
+#BASE_IMAGE=gq-env/spark-base
+#IMAGE_TAG=3.2.0-hadoop3.2
 
 set -e
 
-SPARK_VERSION=3.1.1
+SPARK_VERSION=3.2.0
 HADOOP_VERSION=3.2
 TAG=${SPARK_VERSION}-hadoop${HADOOP_VERSION}
 
@@ -14,7 +14,9 @@ build() {
     IMAGE=gq-env/spark-$NAME:$TAG
     cd $([ -z "$2" ] && echo "./$NAME" || echo "$2")
     echo '--------------------------' building $IMAGE in $(pwd)
-    docker build --build-arg IMAGE=${BASE_IMAGE} --build-arg TAG=${IMAGE_TAG} -t $IMAGE .
+#    docker build --build-arg IMAGE=${BASE_IMAGE} --build-arg TAG=${IMAGE_TAG} -t $IMAGE .
+    docker build -t $IMAGE .
+
     cd -
 }
 

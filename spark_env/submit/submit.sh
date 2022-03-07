@@ -3,8 +3,8 @@
 export SPARK_MASTER_URL=spark://${SPARK_MASTER_NAME}:${SPARK_MASTER_PORT}
 export SPARK_HOME=/spark
 
-/wait-for-step.sh
-/execute-step.sh
+/home/wait-for-step.sh
+/home/execute-step.sh
 
 if [ ! -z "${SPARK_APPLICATION_JAR_LOCATION}" ]; then
     echo "Submit application ${SPARK_APPLICATION_JAR_LOCATION} with main class ${SPARK_APPLICATION_MAIN_CLASS} to Spark master ${SPARK_MASTER_URL}"

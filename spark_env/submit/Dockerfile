@@ -1,10 +1,10 @@
-ARG SPARK_VERSION=3.1.1
-ARG HADOOP_VERSION=3.2
-FROM gq-env/spark-base:${SPARK_VERSION}-hadoop${HADOOP_VERSION}
+ARG IMAGE=gq-env-x85
+ARG TAG=latest
+FROM ${IMAGE}:${TAG}
 
 ENV SPARK_MASTER_NAME spark-master
 ENV SPARK_MASTER_PORT 7077
 
-COPY submit.sh /
+COPY submit.sh /spark/
 
-CMD ["/bin/bash", "/submit.sh"]
+CMD ["/bin/bash", "/spark/submit.sh"]

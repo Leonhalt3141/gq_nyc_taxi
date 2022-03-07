@@ -12,6 +12,7 @@ services:
         IMAGE: "arm64v8/ubuntu"
         TAG: "20.04"
         SBT_VERSION: "1.5.4"
+    user: "ubuntu"
   gq-x86-scala:
     image: gq-env-x85:latest
     tty: true
@@ -25,3 +26,11 @@ services:
         IMAGE: "ubuntu"
         TAG: "20.04"
         SBT_VERSION: "1.5.4"
+    user: "ubuntu"
+  gq-spark:
+    image: gq-env-spark:latest
+    tty: true
+    volumes:
+      - ".:/home"
+    build:
+      context: spark_env/

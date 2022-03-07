@@ -1,13 +1,16 @@
-FROM gq-env/spark-submit:3.1.1-hadoop3.2
+ARG IMAGE=gq-env-x85
+ARG TAG=latest
+FROM ${IMAGE}:${TAG}
 
 ENV SPARK_APPLICATION_JAR_NAME application-1.0
 ENV SPARK_APPLICATION_JAR_LOCATION /app/application.jar
 
-COPY template.sh /
+COPY template.sh /home/
 
+USER root
 RUN apt-get update \
     && apt-get install -y openjdk-8-jdk maven \
-    && chmod +x /template.sh \
+    && chmod +x /home/template.sh \
     && mkdir -p /app \
     && mkdir -p /usr/src/app
 
@@ -23,4 +26,5 @@ ONBUILD COPY . /usr/src/app
 ONBUILD RUN cd /usr/src/app \
       && mvn clean package
 
-CMD ["/bin/bash", "/template.sh"]
+USER ubuntu
+CMD ["/bin/bash", "/home/template.sh"]

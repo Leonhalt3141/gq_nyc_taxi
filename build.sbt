@@ -17,5 +17,8 @@ libraryDependencies ++= Seq(
   "org.apache.spark" %% "spark-sql" % "3.2.0",
   "org.apache.spark" %% "spark-mllib" % "3.2.0",
   "org.apache.spark" %% "spark-graphx" % "3.2.0",
-  "org.locationtech.geomesa" %% "geomesa-utils" % "3.3.0"
+  "org.locationtech.geomesa" %% "geomesa-utils" % "3.3.0",
+  "org.locationtech.geomesa" %% "geomesa-spark-core" % "3.3.0",
+  "org.locationtech.geomesa" %% "geomesa-spark-jts" % "3.3.0",
+  "org.locationtech.geomesa" %% "geomesa-spark-sql" % "3.3.0"
 )

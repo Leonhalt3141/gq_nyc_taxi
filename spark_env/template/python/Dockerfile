@@ -1,6 +1,8 @@
-FROM gq-env/spark-submit:3.1.1-hadoop3.2
+ARG IMAGE=gq-env-x85
+ARG TAG=latest
+FROM ${IMAGE}:${TAG}
 
-COPY template.sh /
+COPY template.sh /spark/
 
 # Copy the requirements.txt first, for separate dependency resolving and downloading
 ONBUILD COPY requirements.txt /app/
@@ -10,4 +12,4 @@ ONBUILD RUN cd /app \
 # Copy the source code
 ONBUILD COPY . /app
 
-CMD ["/bin/bash", "/template.sh"]
+CMD ["/bin/bash", "/spark/template.sh"]

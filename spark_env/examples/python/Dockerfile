@@ -1,5 +1,7 @@
-FROM bde2020/spark-python-template:3.1.1-hadoop3.2
-	  
+ARG IMAGE=gq-env-x85
+ARG TAG=latest
+FROM ${IMAGE}:${TAG}
+
 COPY wordcount.py /app/
 
 ENV SPARK_APPLICATION_PYTHON_LOCATION /app/wordcount.py
