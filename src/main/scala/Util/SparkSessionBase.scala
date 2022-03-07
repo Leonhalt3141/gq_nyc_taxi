@@ -1,4 +1,5 @@
 package Util
+import org.locationtech.geomesa.spark.jts._
 
 import org.apache.spark.sql.SparkSession
 
@@ -7,6 +8,6 @@ trait SparkSessionBase {
     .master("local[*]")
     .appName("KaggleNYCTaxi")
     .getOrCreate()
-
+  sparkSession.withJTS
   sparkSession.sparkContext.setLogLevel("ERROR")
 }

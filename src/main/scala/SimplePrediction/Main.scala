@@ -20,7 +20,7 @@ object Main extends SparkSessionBase {
     val sample_fraction = 0.9
 
     var trainData = getTrainData(sparkSession, trainDataLink)
-    trainData.show(10)
+//    trainData.show(10)
 
     trainData = processTime(trainData)
     val holidayData = getHolidayData(sparkSession, holidayDataLink)
